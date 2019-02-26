@@ -2,14 +2,14 @@
 //nguye639@msu.edu
 //25-Feb-2019 created program
 //25-Feb-2019 added Milne's rule
-
+//attempted to add GSL Function
 
 // include files
 #include "integ_routines.h"   // integration routine prototypes 
 
 // Integration using Simpson's rule
-float simpsons_rule ( int num_pts, float x_min, float x_max, 
-                      float (*integrand) (float x) )
+double simpsons_rule ( int num_pts, float x_min, float x_max, 
+                      double (*integrand) (double x) )
 {  
    float interval = ((x_max - x_min)/float(num_pts - 1));  // called h in notes
    float sum=  0.;  // initialize integration sum to zero		 
@@ -27,8 +27,8 @@ float simpsons_rule ( int num_pts, float x_min, float x_max,
 }  
 
 // Integration using Milne's rule
-float milne_rule ( int num_pts, float x_min, float x_max,
-                      float (*integrand) (float x) )
+double milne_rule ( int num_pts, float x_min, float x_max,
+                      double (*integrand) (double x) )
 {
    float interval = ((x_max - x_min)/float(num_pts - 1));  // called h in notes
    float sum=  0.;  // initialize integration sum to zero 
@@ -49,6 +49,34 @@ float milne_rule ( int num_pts, float x_min, float x_max,
    sum *= interval/5.;
 
    return (sum);
+}
+
+double GSL_integ ( float x_min, float x_max,
+                      double (*integrand) (double x, void *params) )
+{            
+
+   gsl_integration_workspace *work_ptr 
+    = gsl_integration_workspace_alloc (1000);
+  
+  double abs_error = 1.0e-8;    /* to avoid round-off problems */
+  double rel_error = 1.0e-8;    /* the result will usually be much better */
+  double result;                /* the result from the integration */
+  double error;                 /* the estimated error from the integration */
+  
+  double alpha = 1.0;           // parameter in integrand
+  
+  gsl_function My_function;
+  void *params_ptr = &alpha;
+
+  My_function.function = integrand;
+  My_function.params = params_ptr;
+
+  gsl_integration_qags (&My_function, x_min, x_max,
+                        abs_error, rel_error, 1000, work_ptr, &result,
+                        &error);
+
+
+   return (result);
 }
 
 

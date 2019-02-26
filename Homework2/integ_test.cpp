@@ -1,12 +1,9 @@
 //Le Nguyen
 //nguye639@msu.edu
 //25-Feb-2019 created program
+//Moved all function declarations to header file
 
 #include "integ_routines.h"	// prototypes for integration routines
-
-float my_integrand (float x);
-
-const double ME = 2.7182818284590452354E0;	// Euler's number 
 
 int
 main ()
@@ -14,9 +11,9 @@ main ()
   // set up the integration specifiction
   const int max_intervals = 501;	// maximum number of intervals
   const float lower = 0.0;	// lower limit of integration
-  const float upper = 1.0;	// upper limit of integration
+  const float upper = M_PI;	// upper limit of integration
 
-  const double answer = 1. - 1. / ME;	// the "exact" answer for the test 
+  const double answer = 2;	// the "exact" answer for the test 
   float result = 0.;  // approximate answer
 
   // open the output file stream
@@ -34,6 +31,9 @@ main ()
 
     result = milne_rule (i, lower, upper, &my_integrand);
     integ_out << "  " << scientific << log10(fabs (result - answer)/answer);
+    
+    result = GSL_integ (lower, upper, &my_gsl_integrand);
+    integ_out << "  " << scientific << log10(fabs (result - answer)/answer);
 
     integ_out << endl;
   }
@@ -44,11 +44,16 @@ main ()
   return (0);
 }
 
-//************************************************************************
 
 // the function we want to integrate 
-float
-my_integrand (float x)
+double
+my_integrand (double x)
 {
-  return (exp (-x));
+  return (sin(x));
 }
+
+double my_gsl_integrand (double x, void *)
+{
+  return (my_integrand(x));
+}
+
