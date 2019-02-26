@@ -9,11 +9,11 @@ int
 main ()
 {
   // set up the integration specifiction
-  const int max_intervals = 501;	// maximum number of intervals
+  const int max_intervals = 1001;	// maximum number of intervals
   const float lower = 0.0;	// lower limit of integration
   const float upper = M_PI;	// upper limit of integration
 
-  const double answer = 2;	// the "exact" answer for the test 
+ // const double answer = M_PI;	// the "exact" answer for the test 
   float result = 0.;  // approximate answer
 
   // open the output file stream
@@ -27,13 +27,13 @@ main ()
     integ_out << setw(4) << log10(i);
 
     result = simpsons_rule (i, lower, upper, &my_integrand);
-    integ_out << "  " << scientific << log10(fabs (result - answer)/answer);
+    integ_out << "  " << scientific << result;   //(fabs (result - answer)/answer);
 
     result = milne_rule (i, lower, upper, &my_integrand);
-    integ_out << "  " << scientific << log10(fabs (result - answer)/answer);
+    integ_out << "  " << scientific << result;  //(fabs (result - answer)/answer);
     
     result = GSL_integ (lower, upper, &my_gsl_integrand);
-    integ_out << "  " << scientific << log10(fabs (result - answer)/answer);
+    integ_out << "  " << scientific << result; // (fabs (result - answer)/answer);
 
     integ_out << endl;
   }
@@ -49,7 +49,7 @@ main ()
 double
 my_integrand (double x)
 {
-  return (sin(x));
+  return (x*sin(x));
 }
 
 double my_gsl_integrand (double x, void *)

@@ -34,19 +34,18 @@ double milne_rule ( int num_pts, float x_min, float x_max,
    float sum=  0.;  // initialize integration sum to zero 
 
                
-   double x1, x2, x3, x4, x5;
-   for (int n=2; n<num_pts; n+=5)  // step through the integral, 5 points at a time  
+   double x1, x2, x3; 
+   for (int n=2; n<num_pts; n+=4)  // step through the integral, 4 points at a time  
    {
      x1 = x_min + interval * (n-1);
      x2 = x1 + interval;
      x3 = x2 + interval;
-     x4 = x3 + interval;
-     x5 = x4 + interval;
 
-     sum += (14./45) * integrand(x1) + (64./45.) * integrand(x2) + (24./45.)* integrand(x3) + (64./45)*integrand(x4) + (14./45.)*integrand(x5);
+     sum += 2.*integrand(x1) - integrand(x2) + 2.*integrand(x3);
+
    }
-   sum += integrand(x_min) - integrand(x_max);
-   sum *= interval/5.;
+   sum +=  integrand(x_min) -  integrand(x_max);
+   sum *= interval*(4./3.);
 
    return (sum);
 }
