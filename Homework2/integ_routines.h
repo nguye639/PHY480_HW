@@ -17,7 +17,7 @@ using namespace std;
 extern float simpsons_rule ( int num_pts, float x_min, float x_max, 
                        float (*integrand) (float x) );    // Simpson's rule 
    
-extern float Milne_rule ( int num_pts, float x_min, float x_max,
+extern float milne_rule ( int num_pts, float x_min, float x_max,
                        float (*integrand) (float x) );    // Milne's rule 
 
 

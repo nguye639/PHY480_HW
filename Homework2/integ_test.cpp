@@ -21,7 +21,7 @@ main ()
 
   // open the output file stream
   ofstream integ_out ("integ.dat");	// save data in integ.dat
-  integ_out << "#  N   trapezoid     Milne      GSL  " << endl;
+  integ_out << "#  N     trapezoid       Milne        GSL  " << endl;
   integ_out << "#-----------------------------------------" << endl;
 
   // Simpson's rule requires an odd number of intervals  
@@ -30,6 +30,9 @@ main ()
     integ_out << setw(4) << log10(i);
 
     result = simpsons_rule (i, lower, upper, &my_integrand);
+    integ_out << "  " << scientific << log10(fabs (result - answer)/answer);
+
+    result = milne_rule (i, lower, upper, &my_integrand);
     integ_out << "  " << scientific << log10(fabs (result - answer)/answer);
 
     integ_out << endl;
