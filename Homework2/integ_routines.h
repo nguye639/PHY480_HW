@@ -1,7 +1,8 @@
 //Le Nguyen
 //nguye639@msu.edu
 //25-Feb-2019 created file
-//26-Fev-2019 added all function declarations to the header file
+//26-Feb-2019 added all function declarations to the header file
+//27-Feb-2019 add comments
 
 //initializes used libraries and functions
 #ifndef header
@@ -15,6 +16,7 @@
 #include <gsl/gsl_integration.h>
 using namespace std;
 
+//Delcaring functions
 double my_integrand (double x);
 double my_gsl_integrand (double x, void *);
 

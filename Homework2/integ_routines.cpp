@@ -2,7 +2,8 @@
 //nguye639@msu.edu
 //25-Feb-2019 created program
 //25-Feb-2019 added Milne's rule
-//attempted to add GSL Function
+//26-Feb-2019 GSL Function
+//27-Feb-2019 add comments
 
 // include files
 #include "integ_routines.h"   // integration routine prototypes 
@@ -50,6 +51,7 @@ double milne_rule ( int num_pts, float x_min, float x_max,
    return (sum);
 }
 
+//GSL integrator(qags)
 double GSL_integ ( float x_min, float x_max,
                       double (*integrand) (double x, void *params) )
 {            
