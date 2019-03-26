@@ -80,10 +80,3 @@ double GSL_integ ( float x_min, float x_max,
    return (result);
 }
 
-
-
-
-
-
-
-
