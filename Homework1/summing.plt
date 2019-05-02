@@ -4,13 +4,10 @@ set ylabel 'Error'
 
 set logscale
 
-set xrange[0:1100]
-set yrange[.1:10]
-
 f(x) = a*x+b
-fit [100:1000] f(x) "summing.dat" using ($1):(abs($2-$3)/(.5*abs($3)+abs($2))) via a,b
+fit [1000:1000000] f(x) "summing.dat" using ($1):($4) via a,b
 
-plot "summing.dat" using ($1):(abs($2-$3)/(.5*abs($3)+abs($2))),\
+plot "summing.dat" using ($1):($4),\
 a*x+b 
 
 set out "summing.ps"

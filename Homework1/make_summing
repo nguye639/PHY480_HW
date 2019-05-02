@@ -46,13 +46,10 @@ BASE=  summing
 
 # Put all C++ (or other) source files here.  NO SPACES after continuation \'s.
 SRCS= \
-summing.cpp\
-sum_down.cpp\
-sum_up.cpp 
+summing.cpp
 
 # Put all header files here.  NO SPACES after continuation \'s.
 HDRS= \
-sum_header.h
 
 # Put any input files you want to be saved in tarballs (e.g., sample files).
 INPFILE= \

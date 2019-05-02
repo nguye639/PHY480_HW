@@ -1,5 +1,7 @@
-/*The graph of error vs. step on a logscale starts flat but takes a sharp bend
-downward after about 100 steps. This means that the as the numbers of steps inceases, the error decreases. The most accurate region of the graph is after a large number of steps. Only the flat portion of the graph at the beginning resembleda power law. With a linear fit of the region, I found the power to be -3.
+/*
+The graph of the error of summing up vs. summing up is linear with a power of 1; or every order of magnitude taken in steps, is an order of
+magnitude increase in error for greater than 10,000 steps. After 10,000 steps machine error starts to kick in when dividing by large N. Less
+than 10,000 steps, the error decreases with step with a power of about .1. 
 
 Summing downward is more precise because starting with the smallest number forces the computer to look at the most decimal places. With summing up, the first number is 1, and the computer in single precision will look at the ones place and ignore decimals as it adds smaller numbers.
 */
@@ -9,9 +11,46 @@ Summing downward is more precise because starting with the smallest number force
 // nguye639@msu.edu
 // 02-Feb-2019 created program
 // 05-Feb-2019 created makefile
+// 02-May-2019 corrected graph
 
-//including header file
-#include "sum_header.h"
+#include <cmath>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+using namespace std;
+
+float up(int N);
+float down(int N);
+
+//make vector to store values
+float down(int N)
+{
+  
+  float num = 0;
+  //sum down loop
+  for(int i=1; i <= N; i++)
+  {
+    num += float(1)/i;
+
+  }
+return num;
+}
+
+//create function that will return a vector of values
+float up(int N)
+{
+  
+  float num = 0;
+
+  //Summing up loop
+  for(int j= N; j > 0; j--)
+  {
+    num += float(1)/j;
+
+  }
+
+return num;
+}
 
 int main()
 {
@@ -20,18 +59,19 @@ int main()
  output.open("summing.dat");
 
  //define number of steps
- const int N = 1000;
-
- //get the values from the sum_up and sum_down functions
- vector <float> sum1 = up(N);
- vector <float> sum2 = down(N);
+ const int N = 100000000;
  
  //column headers
  output <<"N"<<"     "<<"Sum up"<<"     "<< "Sum down"<<endl; 
  //print out the values into a file
- for(int i= 0; i < N; i++)
+ for(int i= 100; i <= N; i*=10)
    {
-     output << i+1 << "      "<< setprecision(8) <<sum1[i]<<"       " <<sum2[i]<<endl;
+     //get the values from the sum_up and sum_down functions
+     float sum1 = up(i);
+     float sum2 = down(i);
+
+     output << i << "      "<< setprecision(8) <<sum1<<"       " <<sum2<<"     "\
+     <<fabs(sum1-sum2)/(.5*(fabs(sum1)+fabs(sum2))) <<endl;
    }
 
  output.close(); 

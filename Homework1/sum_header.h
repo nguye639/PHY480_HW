@@ -6,6 +6,7 @@
 #ifndef header
 #define header
 
+#include <cmath>
 #include <fstream>
 #include <vector>
 #include <iomanip>
