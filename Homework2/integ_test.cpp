@@ -3,6 +3,8 @@
 //25-Feb-2019 created program
 //26-Feb-2019 Moved all function declarations to header file
 //27-Feb-2019 Added Comments
+//02-Mayb-2019 change everything to double precision
+
 
 #include "integ_routines.h"	// prototypes for integration routines
 
@@ -11,11 +13,11 @@ main ()
 {
   // set up the integration specifiction
   const int max_intervals = 10001;	// maximum number of intervals
-  const float lower = 0.0;	// lower limit of integration
-  const float upper = M_PI;	// upper limit of integration
+  const double lower = 0.0;	// lower limit of integration
+  const double upper = M_PI;	// upper limit of integration
 
   const double answer = 2.43532;	// the "exact" answer for the test 
-  float result = 0.;  // approximate answer
+  double result = 0.;  // approximate answer
 
   // open the output file stream
   ofstream integ_out1 ("integ1.dat");	// save data in integ1.dat
@@ -60,7 +62,7 @@ for (int i = 3; i <= max_intervals; i += 4) //milne's rule is in a seperate loop
 double
 my_integrand (double x)
 {
-  return (sqrt(x)*sin(x));
+  return (x*sin(x));
 }
 
 double my_gsl_integrand (double x, void *) //reworking in a way GSL will accept
