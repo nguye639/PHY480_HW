@@ -1,7 +1,12 @@
 /*
-The logscale graph of the bessel function error takes a large dip down with increasing  x, levels out and then shoots back up. This looks to me like there is a range of stable x values where the answer up and the answer down are similar if not the same.  
+For the region less than x = 10, the error is mostly due to the upward recusion,
+because summing upwards has the most error at a low amount of steps. After x =10the error is due to machine percision, because both addind up and adding down work. After x > 50, the summing down starts to become the main source of error
+because the summing down had the most error at large steps (rounding error from
+dividing by large N, just like summing up with a small amount of steps).
+The area of stability around x = 100 comes from the relative error between
+the two recursions being small, basically, they are both wrong in the same 
+way. After this, the errors in each method diverge, until they hit the mathematical maximum of error and stay there.
 
-The first part of the graph is a downward slope because it is approaching this region of stability, and it would follow that the upward slope after the stable region is caused by the x values getting farther and farther away from stability
 */
 
 
@@ -52,7 +57,7 @@ main ()
 	<< scientific << setprecision (8)
 	<< setw (15) << ans_down << " "
 	<< setw (15) << ans_up 
-	<< setw (15) << abs(ans_down-ans_up)/(abs(ans_down)+abs(ans_up))
+	<< setw (15) << abs(ans_down-ans_up)/((abs(ans_down)+abs(ans_up)))
         << setw (15) << ans_gsl
 	<< endl;
     }
