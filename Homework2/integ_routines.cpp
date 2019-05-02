@@ -12,8 +12,8 @@
 double simpsons_rule ( int num_pts, float x_min, float x_max, 
                       double (*integrand) (double x) )
 {  
-   float interval = ((x_max - x_min)/float(num_pts - 1));  // called h in notes
-   float sum=  0.;  // initialize integration sum to zero		 
+   double interval = ((x_max - x_min)/float(num_pts - 1));  // called h in notes
+   double sum=  0.;  // initialize integration sum to zero		 
    
    double x1, x2;
    for (int n=2; n<num_pts; n+=2)  // step through the integral, 2 points at a time  
@@ -31,8 +31,8 @@ double simpsons_rule ( int num_pts, float x_min, float x_max,
 double milne_rule ( int num_pts, float x_min, float x_max,
                       double (*integrand) (double x) )
 {
-   float interval = ((x_max - x_min)/float(num_pts - 1));  // called h in notes
-   float sum=  0.;  // initialize integration sum to zero 
+   double interval = ((x_max - x_min)/float(num_pts - 1));  // called h in notes
+   double sum=  0.;  // initialize integration sum to zero 
 
                
    double x1, x2, x3; 
