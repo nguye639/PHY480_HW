@@ -1,0 +1,4 @@
+Nice job. Very readable and clean code, and nice analysis. (Yours is about the 15th jupyter notebook submission, most of which
+have been really good. I'm starting to wonder if I should migrate all or at least some of the course to Python ;).)
+
+Grade: Check(+)
